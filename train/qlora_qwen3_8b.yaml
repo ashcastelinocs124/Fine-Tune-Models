@@ -1,0 +1,54 @@
+# LLaMA-Factory QLoRA config for Qwen3-8B on the macro deep-search traces.
+# RUN ON THE VPS (A100/H100). See train/train.sh.
+#
+# Before training:
+#   1) data/dataset/{train,val}.json must exist (gen/to_dataset.py).
+#   2) Register the dataset: copy data/dataset/dataset_info.json's "macro_traces" entry
+#      into LLaMA-Factory's dataset_info.json (or point dataset_dir at data/dataset).
+#   3) Run train/check_template_parity.py and confirm "PARITY OK" before training.
+
+### model
+model_name_or_path: Qwen/Qwen3-8B
+trust_remote_code: true
+
+### quantization (QLoRA)
+quantization_bit: 4
+quantization_method: bnb          # bitsandbytes NF4 + double-quant
+
+### method
+stage: sft
+do_train: true
+finetuning_type: lora
+lora_rank: 32
+lora_alpha: 64
+lora_dropout: 0.05
+lora_target: all                  # all linear layers
+
+### dataset
+dataset_dir: data/dataset         # contains dataset_info.json + train.json/val.json
+dataset: macro_traces
+template: qwen3
+cutoff_len: 16384
+packing: false                    # correct multi-turn masking > throughput
+overwrite_cache: true
+preprocessing_num_workers: 8
+
+### train
+output_dir: outputs/qwen3-8b-macro-lora
+per_device_train_batch_size: 1
+gradient_accumulation_steps: 16
+gradient_checkpointing: true
+learning_rate: 2.0e-4
+num_train_epochs: 2.0
+lr_scheduler_type: cosine
+warmup_ratio: 0.05
+bf16: true
+logging_steps: 5
+save_steps: 50
+plot_loss: true
+
+### eval
+val_size: 0.1                     # held-out fraction for eval loss (in addition to our val.json)
+per_device_eval_batch_size: 1
+eval_strategy: steps
+eval_steps: 50

@@ -1,0 +1,48 @@
+{"id": "eval-fed-00", "question": "Assess the balance of risks around the Fed's policy rate heading into the next policy window.", "theme": "fed", "asof_date": "2026-06-01"}
+{"id": "eval-fed-01", "question": "If you had to put on one position expressing a view on the Fed's policy rate today, what would it be and why?", "theme": "fed", "asof_date": "2026-06-01"}
+{"id": "eval-fed-02", "question": "Which single upcoming data release matters most for front-end USD rates, and what would each outcome imply?", "theme": "fed", "asof_date": "2026-06-01"}
+{"id": "eval-ecb-00", "question": "Assess the balance of risks around the ECB's policy rate heading into the next policy window.", "theme": "ecb", "asof_date": "2026-06-01"}
+{"id": "eval-ecb-01", "question": "If you had to put on one position expressing a view on the ECB's policy rate today, what would it be and why?", "theme": "ecb", "asof_date": "2026-06-01"}
+{"id": "eval-ecb-02", "question": "Which single upcoming data release matters most for Bunds, and what would each outcome imply?", "theme": "ecb", "asof_date": "2026-06-01"}
+{"id": "eval-boj-00", "question": "Assess the balance of risks around the BoJ's policy normalization heading into the next policy window.", "theme": "boj", "asof_date": "2026-06-01"}
+{"id": "eval-boj-01", "question": "If you had to put on one position expressing a view on the BoJ's policy normalization today, what would it be and why?", "theme": "boj", "asof_date": "2026-06-01"}
+{"id": "eval-boj-02", "question": "Which single upcoming data release matters most for JGBs and the yen, and what would each outcome imply?", "theme": "boj", "asof_date": "2026-06-01"}
+{"id": "eval-us_infl-00", "question": "Assess the balance of risks around US inflation heading into the next policy window.", "theme": "us_infl", "asof_date": "2026-06-01"}
+{"id": "eval-us_infl-01", "question": "If you had to put on one position expressing a view on US inflation today, what would it be and why?", "theme": "us_infl", "asof_date": "2026-06-01"}
+{"id": "eval-us_infl-02", "question": "Which single upcoming data release matters most for TIPS breakevens, and what would each outcome imply?", "theme": "us_infl", "asof_date": "2026-06-01"}
+{"id": "eval-us_recession-00", "question": "Assess the balance of risks around US recession risk heading into the next policy window.", "theme": "us_recession", "asof_date": "2026-06-01"}
+{"id": "eval-us_recession-01", "question": "If you had to put on one position expressing a view on US recession risk today, what would it be and why?", "theme": "us_recession", "asof_date": "2026-06-01"}
+{"id": "eval-us_recession-02", "question": "Which single upcoming data release matters most for US equities, and what would each outcome imply?", "theme": "us_recession", "asof_date": "2026-06-01"}
+{"id": "eval-dxy-00", "question": "Assess the balance of risks around the US dollar (DXY) heading into the next policy window.", "theme": "dxy", "asof_date": "2026-06-01"}
+{"id": "eval-dxy-01", "question": "If you had to put on one position expressing a view on the US dollar (DXY) today, what would it be and why?", "theme": "dxy", "asof_date": "2026-06-01"}
+{"id": "eval-dxy-02", "question": "Which single upcoming data release matters most for the dollar index, and what would each outcome imply?", "theme": "dxy", "asof_date": "2026-06-01"}
+{"id": "eval-eurusd-00", "question": "Assess the balance of risks around EUR/USD heading into the next policy window.", "theme": "eurusd", "asof_date": "2026-06-01"}
+{"id": "eval-eurusd-01", "question": "If you had to put on one position expressing a view on EUR/USD today, what would it be and why?", "theme": "eurusd", "asof_date": "2026-06-01"}
+{"id": "eval-eurusd-02", "question": "Which single upcoming data release matters most for EUR/USD, and what would each outcome imply?", "theme": "eurusd", "asof_date": "2026-06-01"}
+{"id": "eval-usdjpy-00", "question": "Assess the balance of risks around USD/JPY heading into the next policy window.", "theme": "usdjpy", "asof_date": "2026-06-01"}
+{"id": "eval-usdjpy-01", "question": "If you had to put on one position expressing a view on USD/JPY today, what would it be and why?", "theme": "usdjpy", "asof_date": "2026-06-01"}
+{"id": "eval-usdjpy-02", "question": "Which single upcoming data release matters most for the yen, and what would each outcome imply?", "theme": "usdjpy", "asof_date": "2026-06-01"}
+{"id": "eval-curve-00", "question": "Assess the balance of risks around the US yield curve (2s10s) heading into the next policy window.", "theme": "curve", "asof_date": "2026-06-01"}
+{"id": "eval-curve-01", "question": "If you had to put on one position expressing a view on the US yield curve (2s10s) today, what would it be and why?", "theme": "curve", "asof_date": "2026-06-01"}
+{"id": "eval-curve-02", "question": "Which single upcoming data release matters most for the Treasury curve, and what would each outcome imply?", "theme": "curve", "asof_date": "2026-06-01"}
+{"id": "eval-oil-00", "question": "Assess the balance of risks around crude oil prices heading into the next policy window.", "theme": "oil", "asof_date": "2026-06-01"}
+{"id": "eval-oil-01", "question": "If you had to put on one position expressing a view on crude oil prices today, what would it be and why?", "theme": "oil", "asof_date": "2026-06-01"}
+{"id": "eval-oil-02", "question": "Which single upcoming data release matters most for WTI crude, and what would each outcome imply?", "theme": "oil", "asof_date": "2026-06-01"}
+{"id": "eval-gold-00", "question": "Assess the balance of risks around gold prices heading into the next policy window.", "theme": "gold", "asof_date": "2026-06-01"}
+{"id": "eval-gold-01", "question": "If you had to put on one position expressing a view on gold prices today, what would it be and why?", "theme": "gold", "asof_date": "2026-06-01"}
+{"id": "eval-gold-02", "question": "Which single upcoming data release matters most for gold, and what would each outcome imply?", "theme": "gold", "asof_date": "2026-06-01"}
+{"id": "eval-copper-00", "question": "Assess the balance of risks around copper prices heading into the next policy window.", "theme": "copper", "asof_date": "2026-06-01"}
+{"id": "eval-copper-01", "question": "If you had to put on one position expressing a view on copper prices today, what would it be and why?", "theme": "copper", "asof_date": "2026-06-01"}
+{"id": "eval-copper-02", "question": "Which single upcoming data release matters most for copper, and what would each outcome imply?", "theme": "copper", "asof_date": "2026-06-01"}
+{"id": "eval-china-00", "question": "Assess the balance of risks around China's growth trajectory heading into the next policy window.", "theme": "china", "asof_date": "2026-06-01"}
+{"id": "eval-china-01", "question": "If you had to put on one position expressing a view on China's growth trajectory today, what would it be and why?", "theme": "china", "asof_date": "2026-06-01"}
+{"id": "eval-china-02", "question": "Which single upcoming data release matters most for China-sensitive assets, and what would each outcome imply?", "theme": "china", "asof_date": "2026-06-01"}
+{"id": "eval-em_debt-00", "question": "Assess the balance of risks around emerging-market sovereign debt heading into the next policy window.", "theme": "em_debt", "asof_date": "2026-06-01"}
+{"id": "eval-em_debt-01", "question": "If you had to put on one position expressing a view on emerging-market sovereign debt today, what would it be and why?", "theme": "em_debt", "asof_date": "2026-06-01"}
+{"id": "eval-em_debt-02", "question": "Which single upcoming data release matters most for EM hard-currency debt, and what would each outcome imply?", "theme": "em_debt", "asof_date": "2026-06-01"}
+{"id": "eval-us_fiscal-00", "question": "Assess the balance of risks around the US fiscal trajectory heading into the next policy window.", "theme": "us_fiscal", "asof_date": "2026-06-01"}
+{"id": "eval-us_fiscal-01", "question": "If you had to put on one position expressing a view on the US fiscal trajectory today, what would it be and why?", "theme": "us_fiscal", "asof_date": "2026-06-01"}
+{"id": "eval-us_fiscal-02", "question": "Which single upcoming data release matters most for the long end of the curve, and what would each outcome imply?", "theme": "us_fiscal", "asof_date": "2026-06-01"}
+{"id": "eval-credit-00", "question": "Assess the balance of risks around US credit spreads heading into the next policy window.", "theme": "credit", "asof_date": "2026-06-01"}
+{"id": "eval-credit-01", "question": "If you had to put on one position expressing a view on US credit spreads today, what would it be and why?", "theme": "credit", "asof_date": "2026-06-01"}
+{"id": "eval-credit-02", "question": "Which single upcoming data release matters most for US investment-grade credit, and what would each outcome imply?", "theme": "credit", "asof_date": "2026-06-01"}

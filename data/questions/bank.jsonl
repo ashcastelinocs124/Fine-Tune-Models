@@ -1,0 +1,150 @@
+{"id": "fed-00", "question": "What is the most likely path of the Fed's policy rate over the next quarter, and why?", "theme": "fed", "asof_date": "2026-06-01"}
+{"id": "fed-01", "question": "What is the most likely path of the Fed's policy rate over the next 12 months, and why?", "theme": "fed", "asof_date": "2026-06-01"}
+{"id": "fed-02", "question": "Lay out the bull and bear case for being long 2y Treasuries.", "theme": "fed", "asof_date": "2026-06-01"}
+{"id": "fed-03", "question": "What do recent US CPI and payrolls releases imply for front-end USD rates?", "theme": "fed", "asof_date": "2026-06-01"}
+{"id": "fed-04", "question": "What are the key macro risks to front-end USD rates over the next two quarters?", "theme": "fed", "asof_date": "2026-06-01"}
+{"id": "fed-05", "question": "How should a global-macro fund position around the Fed's policy rate right now?", "theme": "fed", "asof_date": "2026-06-01"}
+{"id": "fed-06", "question": "What is the market currently pricing for the Fed's policy rate, and is it mispriced?", "theme": "fed", "asof_date": "2026-06-01"}
+{"id": "fed-07", "question": "Summarize the latest data and central-bank signals shaping the Fed's policy rate.", "theme": "fed", "asof_date": "2026-06-01"}
+{"id": "fed-08", "question": "What catalysts over the next quarter could move front-end USD rates sharply in either direction?", "theme": "fed", "asof_date": "2026-06-01"}
+{"id": "fed-09", "question": "Build a base, bull, and bear scenario tree for the Fed's policy rate.", "theme": "fed", "asof_date": "2026-06-01"}
+{"id": "ecb-00", "question": "What is the most likely path of the ECB's policy rate over the next quarter, and why?", "theme": "ecb", "asof_date": "2026-06-01"}
+{"id": "ecb-01", "question": "What is the most likely path of the ECB's policy rate over the next 12 months, and why?", "theme": "ecb", "asof_date": "2026-06-01"}
+{"id": "ecb-02", "question": "Lay out the bull and bear case for long Bunds vs Treasuries.", "theme": "ecb", "asof_date": "2026-06-01"}
+{"id": "ecb-03", "question": "What do recent euro-area HICP releases imply for Bunds?", "theme": "ecb", "asof_date": "2026-06-01"}
+{"id": "ecb-04", "question": "What are the key macro risks to Bunds over the next two quarters?", "theme": "ecb", "asof_date": "2026-06-01"}
+{"id": "ecb-05", "question": "How should a global-macro fund position around the ECB's policy rate right now?", "theme": "ecb", "asof_date": "2026-06-01"}
+{"id": "ecb-06", "question": "What is the market currently pricing for the ECB's policy rate, and is it mispriced?", "theme": "ecb", "asof_date": "2026-06-01"}
+{"id": "ecb-07", "question": "Summarize the latest data and central-bank signals shaping the ECB's policy rate.", "theme": "ecb", "asof_date": "2026-06-01"}
+{"id": "ecb-08", "question": "What catalysts over the next quarter could move Bunds sharply in either direction?", "theme": "ecb", "asof_date": "2026-06-01"}
+{"id": "ecb-09", "question": "Build a base, bull, and bear scenario tree for the ECB's policy rate.", "theme": "ecb", "asof_date": "2026-06-01"}
+{"id": "boj-00", "question": "What is the most likely path of the BoJ's policy normalization over the next quarter, and why?", "theme": "boj", "asof_date": "2026-06-01"}
+{"id": "boj-01", "question": "What is the most likely path of the BoJ's policy normalization over the next 12 months, and why?", "theme": "boj", "asof_date": "2026-06-01"}
+{"id": "boj-02", "question": "Lay out the bull and bear case for short JGBs.", "theme": "boj", "asof_date": "2026-06-01"}
+{"id": "boj-03", "question": "What do recent Japan CPI and wage growth releases imply for JGBs and the yen?", "theme": "boj", "asof_date": "2026-06-01"}
+{"id": "boj-04", "question": "What are the key macro risks to JGBs and the yen over the next two quarters?", "theme": "boj", "asof_date": "2026-06-01"}
+{"id": "boj-05", "question": "How should a global-macro fund position around the BoJ's policy normalization right now?", "theme": "boj", "asof_date": "2026-06-01"}
+{"id": "boj-06", "question": "What is the market currently pricing for the BoJ's policy normalization, and is it mispriced?", "theme": "boj", "asof_date": "2026-06-01"}
+{"id": "boj-07", "question": "Summarize the latest data and central-bank signals shaping the BoJ's policy normalization.", "theme": "boj", "asof_date": "2026-06-01"}
+{"id": "boj-08", "question": "What catalysts over the next quarter could move JGBs and the yen sharply in either direction?", "theme": "boj", "asof_date": "2026-06-01"}
+{"id": "boj-09", "question": "Build a base, bull, and bear scenario tree for the BoJ's policy normalization.", "theme": "boj", "asof_date": "2026-06-01"}
+{"id": "us_infl-00", "question": "What is the most likely path of US inflation over the next quarter, and why?", "theme": "us_infl", "asof_date": "2026-06-01"}
+{"id": "us_infl-01", "question": "What is the most likely path of US inflation over the next 12 months, and why?", "theme": "us_infl", "asof_date": "2026-06-01"}
+{"id": "us_infl-02", "question": "Lay out the bull and bear case for long inflation breakevens.", "theme": "us_infl", "asof_date": "2026-06-01"}
+{"id": "us_infl-03", "question": "What do recent US CPI and PCE releases imply for TIPS breakevens?", "theme": "us_infl", "asof_date": "2026-06-01"}
+{"id": "us_infl-04", "question": "What are the key macro risks to TIPS breakevens over the next two quarters?", "theme": "us_infl", "asof_date": "2026-06-01"}
+{"id": "us_infl-05", "question": "How should a global-macro fund position around US inflation right now?", "theme": "us_infl", "asof_date": "2026-06-01"}
+{"id": "us_infl-06", "question": "What is the market currently pricing for US inflation, and is it mispriced?", "theme": "us_infl", "asof_date": "2026-06-01"}
+{"id": "us_infl-07", "question": "Summarize the latest data and central-bank signals shaping US inflation.", "theme": "us_infl", "asof_date": "2026-06-01"}
+{"id": "us_infl-08", "question": "What catalysts over the next quarter could move TIPS breakevens sharply in either direction?", "theme": "us_infl", "asof_date": "2026-06-01"}
+{"id": "us_infl-09", "question": "Build a base, bull, and bear scenario tree for US inflation.", "theme": "us_infl", "asof_date": "2026-06-01"}
+{"id": "us_recession-00", "question": "What is the most likely path of US recession risk over the next quarter, and why?", "theme": "us_recession", "asof_date": "2026-06-01"}
+{"id": "us_recession-01", "question": "What is the most likely path of US recession risk over the next 12 months, and why?", "theme": "us_recession", "asof_date": "2026-06-01"}
+{"id": "us_recession-02", "question": "Lay out the bull and bear case for long duration as a recession hedge.", "theme": "us_recession", "asof_date": "2026-06-01"}
+{"id": "us_recession-03", "question": "What do recent US labor-market and ISM releases imply for US equities?", "theme": "us_recession", "asof_date": "2026-06-01"}
+{"id": "us_recession-04", "question": "What are the key macro risks to US equities over the next two quarters?", "theme": "us_recession", "asof_date": "2026-06-01"}
+{"id": "us_recession-05", "question": "How should a global-macro fund position around US recession risk right now?", "theme": "us_recession", "asof_date": "2026-06-01"}
+{"id": "us_recession-06", "question": "What is the market currently pricing for US recession risk, and is it mispriced?", "theme": "us_recession", "asof_date": "2026-06-01"}
+{"id": "us_recession-07", "question": "Summarize the latest data and central-bank signals shaping US recession risk.", "theme": "us_recession", "asof_date": "2026-06-01"}
+{"id": "us_recession-08", "question": "What catalysts over the next quarter could move US equities sharply in either direction?", "theme": "us_recession", "asof_date": "2026-06-01"}
+{"id": "us_recession-09", "question": "Build a base, bull, and bear scenario tree for US recession risk.", "theme": "us_recession", "asof_date": "2026-06-01"}
+{"id": "dxy-00", "question": "What is the most likely path of the US dollar (DXY) over the next quarter, and why?", "theme": "dxy", "asof_date": "2026-06-01"}
+{"id": "dxy-01", "question": "What is the most likely path of the US dollar (DXY) over the next 12 months, and why?", "theme": "dxy", "asof_date": "2026-06-01"}
+{"id": "dxy-02", "question": "Lay out the bull and bear case for short USD versus a basket.", "theme": "dxy", "asof_date": "2026-06-01"}
+{"id": "dxy-03", "question": "What do recent US growth and rate-differential releases imply for the dollar index?", "theme": "dxy", "asof_date": "2026-06-01"}
+{"id": "dxy-04", "question": "What are the key macro risks to the dollar index over the next two quarters?", "theme": "dxy", "asof_date": "2026-06-01"}
+{"id": "dxy-05", "question": "How should a global-macro fund position around the US dollar (DXY) right now?", "theme": "dxy", "asof_date": "2026-06-01"}
+{"id": "dxy-06", "question": "What is the market currently pricing for the US dollar (DXY), and is it mispriced?", "theme": "dxy", "asof_date": "2026-06-01"}
+{"id": "dxy-07", "question": "Summarize the latest data and central-bank signals shaping the US dollar (DXY).", "theme": "dxy", "asof_date": "2026-06-01"}
+{"id": "dxy-08", "question": "What catalysts over the next quarter could move the dollar index sharply in either direction?", "theme": "dxy", "asof_date": "2026-06-01"}
+{"id": "dxy-09", "question": "Build a base, bull, and bear scenario tree for the US dollar (DXY).", "theme": "dxy", "asof_date": "2026-06-01"}
+{"id": "eurusd-00", "question": "What is the most likely path of EUR/USD over the next quarter, and why?", "theme": "eurusd", "asof_date": "2026-06-01"}
+{"id": "eurusd-01", "question": "What is the most likely path of EUR/USD over the next 12 months, and why?", "theme": "eurusd", "asof_date": "2026-06-01"}
+{"id": "eurusd-02", "question": "Lay out the bull and bear case for long EUR/USD.", "theme": "eurusd", "asof_date": "2026-06-01"}
+{"id": "eurusd-03", "question": "What do recent euro-area versus US growth releases imply for EUR/USD?", "theme": "eurusd", "asof_date": "2026-06-01"}
+{"id": "eurusd-04", "question": "What are the key macro risks to EUR/USD over the next two quarters?", "theme": "eurusd", "asof_date": "2026-06-01"}
+{"id": "eurusd-05", "question": "How should a global-macro fund position around EUR/USD right now?", "theme": "eurusd", "asof_date": "2026-06-01"}
+{"id": "eurusd-06", "question": "What is the market currently pricing for EUR/USD, and is it mispriced?", "theme": "eurusd", "asof_date": "2026-06-01"}
+{"id": "eurusd-07", "question": "Summarize the latest data and central-bank signals shaping EUR/USD.", "theme": "eurusd", "asof_date": "2026-06-01"}
+{"id": "eurusd-08", "question": "What catalysts over the next quarter could move EUR/USD sharply in either direction?", "theme": "eurusd", "asof_date": "2026-06-01"}
+{"id": "eurusd-09", "question": "Build a base, bull, and bear scenario tree for EUR/USD.", "theme": "eurusd", "asof_date": "2026-06-01"}
+{"id": "usdjpy-00", "question": "What is the most likely path of USD/JPY over the next quarter, and why?", "theme": "usdjpy", "asof_date": "2026-06-01"}
+{"id": "usdjpy-01", "question": "What is the most likely path of USD/JPY over the next 12 months, and why?", "theme": "usdjpy", "asof_date": "2026-06-01"}
+{"id": "usdjpy-02", "question": "Lay out the bull and bear case for the JPY carry trade.", "theme": "usdjpy", "asof_date": "2026-06-01"}
+{"id": "usdjpy-03", "question": "What do recent US-Japan rate-differential releases imply for the yen?", "theme": "usdjpy", "asof_date": "2026-06-01"}
+{"id": "usdjpy-04", "question": "What are the key macro risks to the yen over the next two quarters?", "theme": "usdjpy", "asof_date": "2026-06-01"}
+{"id": "usdjpy-05", "question": "How should a global-macro fund position around USD/JPY right now?", "theme": "usdjpy", "asof_date": "2026-06-01"}
+{"id": "usdjpy-06", "question": "What is the market currently pricing for USD/JPY, and is it mispriced?", "theme": "usdjpy", "asof_date": "2026-06-01"}
+{"id": "usdjpy-07", "question": "Summarize the latest data and central-bank signals shaping USD/JPY.", "theme": "usdjpy", "asof_date": "2026-06-01"}
+{"id": "usdjpy-08", "question": "What catalysts over the next quarter could move the yen sharply in either direction?", "theme": "usdjpy", "asof_date": "2026-06-01"}
+{"id": "usdjpy-09", "question": "Build a base, bull, and bear scenario tree for USD/JPY.", "theme": "usdjpy", "asof_date": "2026-06-01"}
+{"id": "curve-00", "question": "What is the most likely path of the US yield curve (2s10s) over the next quarter, and why?", "theme": "curve", "asof_date": "2026-06-01"}
+{"id": "curve-01", "question": "What is the most likely path of the US yield curve (2s10s) over the next 12 months, and why?", "theme": "curve", "asof_date": "2026-06-01"}
+{"id": "curve-02", "question": "Lay out the bull and bear case for a 2s10s steepener.", "theme": "curve", "asof_date": "2026-06-01"}
+{"id": "curve-03", "question": "What do recent Treasury auction and inflation releases imply for the Treasury curve?", "theme": "curve", "asof_date": "2026-06-01"}
+{"id": "curve-04", "question": "What are the key macro risks to the Treasury curve over the next two quarters?", "theme": "curve", "asof_date": "2026-06-01"}
+{"id": "curve-05", "question": "How should a global-macro fund position around the US yield curve (2s10s) right now?", "theme": "curve", "asof_date": "2026-06-01"}
+{"id": "curve-06", "question": "What is the market currently pricing for the US yield curve (2s10s), and is it mispriced?", "theme": "curve", "asof_date": "2026-06-01"}
+{"id": "curve-07", "question": "Summarize the latest data and central-bank signals shaping the US yield curve (2s10s).", "theme": "curve", "asof_date": "2026-06-01"}
+{"id": "curve-08", "question": "What catalysts over the next quarter could move the Treasury curve sharply in either direction?", "theme": "curve", "asof_date": "2026-06-01"}
+{"id": "curve-09", "question": "Build a base, bull, and bear scenario tree for the US yield curve (2s10s).", "theme": "curve", "asof_date": "2026-06-01"}
+{"id": "oil-00", "question": "What is the most likely path of crude oil prices over the next quarter, and why?", "theme": "oil", "asof_date": "2026-06-01"}
+{"id": "oil-01", "question": "What is the most likely path of crude oil prices over the next 12 months, and why?", "theme": "oil", "asof_date": "2026-06-01"}
+{"id": "oil-02", "question": "Lay out the bull and bear case for long crude oil.", "theme": "oil", "asof_date": "2026-06-01"}
+{"id": "oil-03", "question": "What do recent inventory and OPEC supply releases imply for WTI crude?", "theme": "oil", "asof_date": "2026-06-01"}
+{"id": "oil-04", "question": "What are the key macro risks to WTI crude over the next two quarters?", "theme": "oil", "asof_date": "2026-06-01"}
+{"id": "oil-05", "question": "How should a global-macro fund position around crude oil prices right now?", "theme": "oil", "asof_date": "2026-06-01"}
+{"id": "oil-06", "question": "What is the market currently pricing for crude oil prices, and is it mispriced?", "theme": "oil", "asof_date": "2026-06-01"}
+{"id": "oil-07", "question": "Summarize the latest data and central-bank signals shaping crude oil prices.", "theme": "oil", "asof_date": "2026-06-01"}
+{"id": "oil-08", "question": "What catalysts over the next quarter could move WTI crude sharply in either direction?", "theme": "oil", "asof_date": "2026-06-01"}
+{"id": "oil-09", "question": "Build a base, bull, and bear scenario tree for crude oil prices.", "theme": "oil", "asof_date": "2026-06-01"}
+{"id": "gold-00", "question": "What is the most likely path of gold prices over the next quarter, and why?", "theme": "gold", "asof_date": "2026-06-01"}
+{"id": "gold-01", "question": "What is the most likely path of gold prices over the next 12 months, and why?", "theme": "gold", "asof_date": "2026-06-01"}
+{"id": "gold-02", "question": "Lay out the bull and bear case for long gold.", "theme": "gold", "asof_date": "2026-06-01"}
+{"id": "gold-03", "question": "What do recent real-yield and central-bank-buying releases imply for gold?", "theme": "gold", "asof_date": "2026-06-01"}
+{"id": "gold-04", "question": "What are the key macro risks to gold over the next two quarters?", "theme": "gold", "asof_date": "2026-06-01"}
+{"id": "gold-05", "question": "How should a global-macro fund position around gold prices right now?", "theme": "gold", "asof_date": "2026-06-01"}
+{"id": "gold-06", "question": "What is the market currently pricing for gold prices, and is it mispriced?", "theme": "gold", "asof_date": "2026-06-01"}
+{"id": "gold-07", "question": "Summarize the latest data and central-bank signals shaping gold prices.", "theme": "gold", "asof_date": "2026-06-01"}
+{"id": "gold-08", "question": "What catalysts over the next quarter could move gold sharply in either direction?", "theme": "gold", "asof_date": "2026-06-01"}
+{"id": "gold-09", "question": "Build a base, bull, and bear scenario tree for gold prices.", "theme": "gold", "asof_date": "2026-06-01"}
+{"id": "copper-00", "question": "What is the most likely path of copper prices over the next quarter, and why?", "theme": "copper", "asof_date": "2026-06-01"}
+{"id": "copper-01", "question": "What is the most likely path of copper prices over the next 12 months, and why?", "theme": "copper", "asof_date": "2026-06-01"}
+{"id": "copper-02", "question": "Lay out the bull and bear case for long copper.", "theme": "copper", "asof_date": "2026-06-01"}
+{"id": "copper-03", "question": "What do recent China activity and inventory releases imply for copper?", "theme": "copper", "asof_date": "2026-06-01"}
+{"id": "copper-04", "question": "What are the key macro risks to copper over the next two quarters?", "theme": "copper", "asof_date": "2026-06-01"}
+{"id": "copper-05", "question": "How should a global-macro fund position around copper prices right now?", "theme": "copper", "asof_date": "2026-06-01"}
+{"id": "copper-06", "question": "What is the market currently pricing for copper prices, and is it mispriced?", "theme": "copper", "asof_date": "2026-06-01"}
+{"id": "copper-07", "question": "Summarize the latest data and central-bank signals shaping copper prices.", "theme": "copper", "asof_date": "2026-06-01"}
+{"id": "copper-08", "question": "What catalysts over the next quarter could move copper sharply in either direction?", "theme": "copper", "asof_date": "2026-06-01"}
+{"id": "copper-09", "question": "Build a base, bull, and bear scenario tree for copper prices.", "theme": "copper", "asof_date": "2026-06-01"}
+{"id": "china-00", "question": "What is the most likely path of China's growth trajectory over the next quarter, and why?", "theme": "china", "asof_date": "2026-06-01"}
+{"id": "china-01", "question": "What is the most likely path of China's growth trajectory over the next 12 months, and why?", "theme": "china", "asof_date": "2026-06-01"}
+{"id": "china-02", "question": "Lay out the bull and bear case for long China growth proxies.", "theme": "china", "asof_date": "2026-06-01"}
+{"id": "china-03", "question": "What do recent China PMI and credit releases imply for China-sensitive assets?", "theme": "china", "asof_date": "2026-06-01"}
+{"id": "china-04", "question": "What are the key macro risks to China-sensitive assets over the next two quarters?", "theme": "china", "asof_date": "2026-06-01"}
+{"id": "china-05", "question": "How should a global-macro fund position around China's growth trajectory right now?", "theme": "china", "asof_date": "2026-06-01"}
+{"id": "china-06", "question": "What is the market currently pricing for China's growth trajectory, and is it mispriced?", "theme": "china", "asof_date": "2026-06-01"}
+{"id": "china-07", "question": "Summarize the latest data and central-bank signals shaping China's growth trajectory.", "theme": "china", "asof_date": "2026-06-01"}
+{"id": "china-08", "question": "What catalysts over the next quarter could move China-sensitive assets sharply in either direction?", "theme": "china", "asof_date": "2026-06-01"}
+{"id": "china-09", "question": "Build a base, bull, and bear scenario tree for China's growth trajectory.", "theme": "china", "asof_date": "2026-06-01"}
+{"id": "em_debt-00", "question": "What is the most likely path of emerging-market sovereign debt over the next quarter, and why?", "theme": "em_debt", "asof_date": "2026-06-01"}
+{"id": "em_debt-01", "question": "What is the most likely path of emerging-market sovereign debt over the next 12 months, and why?", "theme": "em_debt", "asof_date": "2026-06-01"}
+{"id": "em_debt-02", "question": "Lay out the bull and bear case for long EM sovereign credit.", "theme": "em_debt", "asof_date": "2026-06-01"}
+{"id": "em_debt-03", "question": "What do recent EM inflation and the dollar releases imply for EM hard-currency debt?", "theme": "em_debt", "asof_date": "2026-06-01"}
+{"id": "em_debt-04", "question": "What are the key macro risks to EM hard-currency debt over the next two quarters?", "theme": "em_debt", "asof_date": "2026-06-01"}
+{"id": "em_debt-05", "question": "How should a global-macro fund position around emerging-market sovereign debt right now?", "theme": "em_debt", "asof_date": "2026-06-01"}
+{"id": "em_debt-06", "question": "What is the market currently pricing for emerging-market sovereign debt, and is it mispriced?", "theme": "em_debt", "asof_date": "2026-06-01"}
+{"id": "em_debt-07", "question": "Summarize the latest data and central-bank signals shaping emerging-market sovereign debt.", "theme": "em_debt", "asof_date": "2026-06-01"}
+{"id": "em_debt-08", "question": "What catalysts over the next quarter could move EM hard-currency debt sharply in either direction?", "theme": "em_debt", "asof_date": "2026-06-01"}
+{"id": "em_debt-09", "question": "Build a base, bull, and bear scenario tree for emerging-market sovereign debt.", "theme": "em_debt", "asof_date": "2026-06-01"}
+{"id": "us_fiscal-00", "question": "What is the most likely path of the US fiscal trajectory over the next quarter, and why?", "theme": "us_fiscal", "asof_date": "2026-06-01"}
+{"id": "us_fiscal-01", "question": "What is the most likely path of the US fiscal trajectory over the next 12 months, and why?", "theme": "us_fiscal", "asof_date": "2026-06-01"}
+{"id": "us_fiscal-02", "question": "Lay out the bull and bear case for long-end steepeners on heavy supply.", "theme": "us_fiscal", "asof_date": "2026-06-01"}
+{"id": "us_fiscal-03", "question": "What do recent Treasury issuance and the deficit releases imply for the long end of the curve?", "theme": "us_fiscal", "asof_date": "2026-06-01"}
+{"id": "us_fiscal-04", "question": "What are the key macro risks to the long end of the curve over the next two quarters?", "theme": "us_fiscal", "asof_date": "2026-06-01"}
+{"id": "us_fiscal-05", "question": "How should a global-macro fund position around the US fiscal trajectory right now?", "theme": "us_fiscal", "asof_date": "2026-06-01"}
+{"id": "us_fiscal-06", "question": "What is the market currently pricing for the US fiscal trajectory, and is it mispriced?", "theme": "us_fiscal", "asof_date": "2026-06-01"}
+{"id": "us_fiscal-07", "question": "Summarize the latest data and central-bank signals shaping the US fiscal trajectory.", "theme": "us_fiscal", "asof_date": "2026-06-01"}
+{"id": "us_fiscal-08", "question": "What catalysts over the next quarter could move the long end of the curve sharply in either direction?", "theme": "us_fiscal", "asof_date": "2026-06-01"}
+{"id": "us_fiscal-09", "question": "Build a base, bull, and bear scenario tree for the US fiscal trajectory.", "theme": "us_fiscal", "asof_date": "2026-06-01"}
