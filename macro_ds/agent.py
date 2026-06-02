@@ -9,16 +9,19 @@ from __future__ import annotations
 
 from typing import Protocol
 
-from macro_ds.prompts import build_system_prompt
+from macro_ds.prompts import FINALIZE_INSTRUCTION, build_system_prompt
 from macro_ds.schema import Message, Trace
 from macro_ds.tools import execute_tool, openai_tool_schemas
 
 
 class Driver(Protocol):
     """Anything that can take the running transcript + tool schemas and return the
-    next assistant Message. Implementations live in drivers.py."""
+    next assistant Message. Implementations live in drivers.py.
 
-    def step(self, messages: list[Message], tool_schemas: list[dict]) -> Message: ...
+    `allow_tools=False` must make the driver answer with plain text (no tool calls) —
+    used to force a final report when the step budget is exhausted."""
+
+    def step(self, messages: list[Message], tool_schemas: list[dict], allow_tools: bool = True) -> Message: ...
 
 
 def run_agent(question: str, asof_date: str, driver: Driver, max_steps: int = 12) -> Trace:
@@ -34,11 +37,18 @@ def run_agent(question: str, asof_date: str, driver: Driver, max_steps: int = 12
     final_report: str | None = None
 
     while steps < max_steps:
-        assistant = driver.step(messages, tool_schemas)
+        # Reserve the final step to force a written report (tools disabled), so a
+        # thorough teacher that keeps researching still produces a completable trace
+        # instead of running out the budget with no answer.
+        last = steps == max_steps - 1
+        if last:
+            # force a clean written report on the final step
+            messages.append(Message(role="user", content=FINALIZE_INSTRUCTION))
+        assistant = driver.step(messages, tool_schemas, allow_tools=not last)
         messages.append(assistant)
         steps += 1
 
-        if assistant.tool_calls:
+        if assistant.tool_calls and not last:
             for tc in assistant.tool_calls:
                 result = execute_tool(tc.name, tc.arguments)
                 if result.startswith("ERROR:"):
@@ -48,7 +58,7 @@ def run_agent(question: str, asof_date: str, driver: Driver, max_steps: int = 12
                 )
             continue
 
-        # no tool calls -> the assistant produced the final deliverable
+        # no tool calls (or final step with tools disabled) -> the final deliverable
         final_report = assistant.content
         break
 

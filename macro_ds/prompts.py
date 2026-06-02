@@ -43,3 +43,15 @@ You have a budget of about {max_steps} tool-calling steps — be efficient and d
 
 def build_system_prompt(asof_date: str, max_steps: int = 12) -> str:
     return SYSTEM_TEMPLATE.format(asof_date=asof_date, max_steps=max_steps)
+
+
+# Injected on the reserved final step (tools disabled) to force a clean, structured report
+# from a teacher that would otherwise keep researching. The harness injects this identically
+# at training and inference, preserving parity.
+FINALIZE_INSTRUCTION = (
+    "You have reached your research budget — do NOT call any more tools. "
+    "Write your Final report now, beginning with 'Final report:'. Structure it as: the view, "
+    "the key drivers each with an inline citation (source URLs in [brackets] and FRED series by "
+    "series_id), the main risks, and what would change your mind. Use only what you have already "
+    "retrieved; do not invent numbers."
+)

@@ -8,7 +8,7 @@ class _ScriptedDriver:
         self.i = 0
         self.usage = {}
 
-    def step(self, messages, tool_schemas):
+    def step(self, messages, tool_schemas, allow_tools=True):
         m = self.scripted[self.i]
         self.i += 1
         return m
@@ -35,22 +35,28 @@ def test_loop_executes_tools_then_terminates(mocker):
     assert tool_msgs and tool_msgs[0].tool_call_id == "1"
 
 
-def test_loop_force_stops_at_max_steps(mocker):
+def test_forces_final_report_at_step_budget(mocker):
+    # A teacher that always wants more tools must still produce a final report on the
+    # reserved last step (driver gets allow_tools=False and answers with text).
     class LoopDriver:
         usage = {}
 
-        def step(self, messages, tool_schemas):
-            return Message(
-                role="assistant",
-                content="Thought: again.",
-                tool_calls=[ToolCall(id="x", name="web_search", arguments={"query": "x"})],
-            )
+        def step(self, messages, tool_schemas, allow_tools=True):
+            if allow_tools:
+                return Message(
+                    role="assistant",
+                    content="Thought: keep going.",
+                    tool_calls=[ToolCall(id="x", name="web_search", arguments={"query": "x"})],
+                )
+            return Message(role="assistant", content="Final report: forced synthesis. [http://u]")
 
     mocker.patch.object(agent, "execute_tool", return_value="RESULT")
     trace = agent.run_agent("q", asof_date="2026-06-01", driver=LoopDriver(), max_steps=3)
-    assert trace.final_report is None
-    assert trace.completed is False
+    assert trace.completed is True
+    assert trace.final_report.startswith("Final report")
     assert trace.steps == 3
+    # last assistant message has no tool calls (it was the forced answer)
+    assert trace.messages[-1].role == "assistant" and not trace.messages[-1].tool_calls
 
 
 def test_tool_error_increments_counter(mocker):
