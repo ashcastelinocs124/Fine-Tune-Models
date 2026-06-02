@@ -11,9 +11,9 @@ what makes a small distilled model actually transfer.
 
 ## Key ideas
 
-- **One shared harness, two drivers.** The same `web_search` / `fetch_url` / `fred_series`
-  tools, result formatting, and ReAct loop drive both teacher generation (OpenAI) and
-  student serving (vLLM). Identical environments = the distillation transfers.
+- **One shared harness, swappable drivers.** The same `web_search` / `fetch_url` / `fred_series`
+  tools, result formatting, and ReAct loop drive teacher generation (OpenAI) and student serving
+  (vLLM, or local transformers via `HFDriver`). Identical environments = the distillation transfers.
 - **Rejection sampling.** Only traces that completed with a cited report, used the tools,
   and passed an LLM judge (≥4/5) enter the training set — a small model learns bad habits
   fast, so quality gating is load-bearing.
@@ -50,38 +50,39 @@ flowchart TB
 
   subgraph TRAIN["4 Train - VPS"]
     direction TB
-    ds2["Dataset"] --> qlora["QLoRA via LLaMA-Factory"] --> adapter["Qwen3-8B LoRA adapter"]
+    ds2["Dataset"] --> qlora["QLoRA via PEFT and transformers"] --> adapter["Qwen3-8B LoRA adapter"]
   end
 
   subgraph SERVE["5 Serve and eval - VPS"]
     direction TB
-    student["Student plus adapter"] --> vllm["vLLM driver runs the loop"] --> report["base vs student vs teacher report"]
+    student["Student plus adapter"] --> drv["student driver runs the loop"] --> report["base vs student vs teacher report"]
   end
 
   GEN --> FILTER --> DATA --> TRAIN --> SERVE
   oai -.uses.-> loop
-  vllm -.uses.-> loop
+  drv -.uses.-> loop
 ```
 
 ## Stack
 
 | Piece | Choice |
 |---|---|
-| Student | Qwen3-8B, QLoRA (4-bit NF4) via LLaMA-Factory |
-| Teacher | GPT (o-series / GPT-5) via OpenAI API |
+| Student | Qwen3-8B, QLoRA (4-bit NF4) via PEFT/transformers (`train/train_qlora.py`) |
+| Teacher | GPT (GPT-5) via OpenAI API; judge GPT-5-mini |
 | Tools | Perplexity Sonar (web search) · `fetch_url` · FRED (economic data) |
-| Serving | vLLM (OpenAI-compatible) |
+| Serving | local transformers (`HFDriver`), or vLLM (OpenAI-compatible) |
 | Hardware | data pipeline on CPU/Mac · training + serving on 1× A100/H100 |
 
 ## Repo layout
 
 ```
 macro_ds/   schema · formatting · tools · prompts · agent (ReAct loop) · drivers
-            (OpenAI + vLLM) · questions · filtering · judge · dataset · mask_check · metrics
+            (OpenAI + vLLM + HF) · questions · filtering · judge · dataset · mask_check · metrics
 gen/        make_questions · generate_traces · filter_traces · to_dataset
-train/      qlora_qwen3_8b.yaml · train.sh · check_template_parity.py   (run on VPS)
+train/      train_qlora.py (direct QLoRA) · qlora_qwen3_8b.yaml + check_template_parity.py
+            (LLaMA-Factory path, kept for reference)                    (run on VPS)
 serve/      serve_vllm.sh · run_agent.py                                (run on VPS)
-eval/       make_eval_set.py · run_eval.py                              (run on VPS)
+eval/       make_eval_set.py · run_eval_hf.py (no-vLLM 3-way) · run_eval.py   (run on VPS)
 tests/      unit tests for every deterministic component
 ```
 
@@ -95,23 +96,26 @@ pytest -q                # the data pipeline + harness are fully unit-tested
 ```
 
 The data pipeline (question bank → trace generation → filtering → dataset) runs on CPU.
-Training (LLaMA-Factory QLoRA) and serving (vLLM) need a CUDA GPU:
+Training (QLoRA) and serving need a CUDA GPU + a CUDA build of torch (the RunPod PyTorch image
+already ships it); then:
 
 ```bash
-pip install "llamafactory[torch,bitsandbytes,metrics]" vllm
+pip install peft bitsandbytes accelerate    # train/train_qlora.py; vLLM only if serving via vLLM
 ```
 
 ## Usage
 
-End-to-end commands are in **`RUNBOOK.md`** (generate → train → serve → eval), staged as a
-cheap **Stage 0** smoke test (≈20 traces) to prove train/serve parity before the **Stage 1**
-lean run (300–500 traces). Always run `python train/check_template_parity.py` and confirm
-`PARITY OK` before training.
+End-to-end commands are in **`RUNBOOK.md`** (generate → train → serve → eval). Train with
+`train/train_qlora.py` (tokenizes via the verified `render_and_mask`, so the loss mask matches
+the real Qwen3 template — no separate parity gate needed). Evaluate base-vs-student-vs-teacher with
+`eval/run_eval_hf.py` (no vLLM required). Stage it: a cheap **Stage 0** smoke test (~20 traces) to
+prove the loop, then the **Stage 1** run (~150–500 traces).
 
 ## Status
 
-Prototype. The full pipeline is implemented and the harness + data pipeline are unit-tested;
-training, serving, and evaluation scripts are written and run on the VPS.
+**Stage 0 proven end-to-end** on an H100: generate (gpt-5) → filter (gpt-5-mini judge) → QLoRA →
+student runs in the shared harness; train/serve parity holds. See `docs/results/2026-06-01-stage0.md`
+for the base-vs-student-vs-teacher comparison. Stage 1 (scale-up) is next.
 
 ## License
 
