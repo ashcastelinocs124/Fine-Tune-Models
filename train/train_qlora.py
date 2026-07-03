@@ -101,14 +101,18 @@ def main() -> None:
     print("=== first example TRAINED text (first 300 chars) ===")
     print(trained[:300])
 
+    # Pre-Ampere GPUs (Kaggle T4/P100) have no bf16 — fall back to fp16.
+    bf16 = torch.cuda.is_bf16_supported()
+    dtype = torch.bfloat16 if bf16 else torch.float16
+
     bnb = BitsAndBytesConfig(
         load_in_4bit=True,
         bnb_4bit_quant_type="nf4",
         bnb_4bit_use_double_quant=True,
-        bnb_4bit_compute_dtype=torch.bfloat16,
+        bnb_4bit_compute_dtype=dtype,
     )
     model = AutoModelForCausalLM.from_pretrained(
-        args.model, quantization_config=bnb, torch_dtype=torch.bfloat16, device_map={"": 0}
+        args.model, quantization_config=bnb, torch_dtype=dtype, device_map={"": 0}
     )
     model.config.use_cache = False
     model = prepare_model_for_kbit_training(model, use_gradient_checkpointing=True)
@@ -129,7 +133,8 @@ def main() -> None:
         learning_rate=args.lr,
         lr_scheduler_type="cosine",
         warmup_ratio=0.05,
-        bf16=True,
+        bf16=bf16,
+        fp16=not bf16,
         logging_steps=1,
         save_strategy="no",  # save once explicitly at the end (avoids mid-train checkpoint disk use)
         gradient_checkpointing=True,

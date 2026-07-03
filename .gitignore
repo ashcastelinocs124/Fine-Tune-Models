@@ -1,0 +1,21 @@
+# secrets
+.env
+
+# generated data & artifacts
+data/traces/
+data/dataset/
+outputs/
+eval/results/
+
+# python
+__pycache__/
+*.pyc
+.venv/
+*.egg-info/
+
+# agent-instruction docs — never committed
+CLAUDE.md
+AGENTS.md
+docs/plans/
+*-spec.md
+*-plan.md
