@@ -49,3 +49,20 @@ def test_tools_registry_shape():
 def test_openai_tool_schemas_returns_list():
     schemas = tools.openai_tool_schemas()
     assert isinstance(schemas, list) and len(schemas) == 4
+
+
+def test_openai_tool_schemas_default_returns_all():
+    schemas = tools.openai_tool_schemas()
+    assert [s["function"]["name"] for s in schemas] == list(tools.TOOLS.keys())
+
+
+def test_openai_tool_schemas_subset_and_order():
+    schemas = tools.openai_tool_schemas(["fetch_url", "web_search"])
+    assert [s["function"]["name"] for s in schemas] == ["fetch_url", "web_search"]
+
+
+def test_openai_tool_schemas_unknown_name_fails_fast():
+    import pytest
+
+    with pytest.raises(ValueError, match="nope"):
+        tools.openai_tool_schemas(["web_search", "nope"])

@@ -192,9 +192,14 @@ TOOLS: dict[str, tuple[Callable[..., str], dict[str, Any]]] = {
 }
 
 
-def openai_tool_schemas() -> list[dict[str, Any]]:
-    """Return the tool schemas in OpenAI tools format."""
-    return [schema for _, schema in TOOLS.values()]
+def openai_tool_schemas(names: list[str] | None = None) -> list[dict[str, Any]]:
+    """Return tool schemas in OpenAI tools format. `names` selects a subset (None = all)."""
+    if names is None:
+        return [schema for _, schema in TOOLS.values()]
+    unknown = [n for n in names if n not in TOOLS]
+    if unknown:
+        raise ValueError(f"unknown tool(s) {unknown!r}; valid tools: {list(TOOLS)}")
+    return [TOOLS[n][1] for n in names]
 
 
 def execute_tool(name: str, arguments: dict[str, Any]) -> str:
