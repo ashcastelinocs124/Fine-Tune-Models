@@ -15,6 +15,7 @@ import json
 import statistics
 
 from macro_ds.agent import run_agent
+from macro_ds.domains import get_profile
 from macro_ds.drivers import HFDriver, OpenAIDriver
 from macro_ds.judge import judge_trace
 from macro_ds.metrics import hallucinated_number_rate, mechanical_metrics
@@ -46,7 +47,9 @@ def main() -> None:
     ap.add_argument("--limit", type=int, default=2)
     ap.add_argument("--max-steps", type=int, default=6)
     ap.add_argument("--systems", nargs="+", default=["base", "student", "teacher"])
+    ap.add_argument("--domain", default="macro", help="domain profile: macro | general_search")
     args = ap.parse_args()
+    profile = get_profile(args.domain)
 
     questions = [json.loads(l) for l in open(args.eval_set) if l.strip()][: args.limit]
     print(f"Evaluating {len(questions)} held-out questions across {args.systems}\n")
@@ -66,13 +69,14 @@ def main() -> None:
     for q in questions:
         for name, drv in drivers.items():
             try:
-                tr = run_agent(q["question"], q["asof_date"], driver=drv, max_steps=args.max_steps)
+                tr = run_agent(q["question"], q["asof_date"], driver=drv, max_steps=args.max_steps,
+                               profile=profile)
             except Exception as e:  # noqa: BLE001
                 print(f"[warn] {name} failed on {q['id']}: {e}")
                 continue
             mech = mechanical_metrics(tr)
             try:
-                jr = judge_trace(tr, model=args.judge)
+                jr = judge_trace(tr, model=args.judge, rubric=profile.judge_rubric)
             except Exception as e:  # noqa: BLE001
                 print(f"[warn] judge failed {name}/{q['id']}: {e}")
                 jr = {"overall": None}

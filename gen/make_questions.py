@@ -10,7 +10,7 @@ import argparse
 import json
 import pathlib
 
-from macro_ds.questions import build_question_bank
+from macro_ds.domains import get_profile
 
 
 def main() -> None:
@@ -18,9 +18,10 @@ def main() -> None:
     ap.add_argument("--n", type=int, default=150)
     ap.add_argument("--asof", required=True, help="as-of date, e.g. 2026-06-01")
     ap.add_argument("--out", default="data/questions/bank.jsonl")
+    ap.add_argument("--domain", default="macro", help="domain profile: macro | general_search")
     args = ap.parse_args()
 
-    bank = build_question_bank(asof_date=args.asof, n=args.n)
+    bank = get_profile(args.domain).build_question_bank(asof_date=args.asof, n=args.n)
     out = pathlib.Path(args.out)
     out.parent.mkdir(parents=True, exist_ok=True)
     with out.open("w") as f:

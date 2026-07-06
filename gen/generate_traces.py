@@ -21,6 +21,7 @@ from concurrent.futures import ThreadPoolExecutor, as_completed
 from typing import Any, Callable
 
 from macro_ds.agent import run_agent
+from macro_ds.domains import DomainProfile, get_profile
 from macro_ds.drivers import OpenAIDriver
 
 DEFAULT_MAX_STEPS = 12
@@ -36,7 +37,8 @@ def _load_bank(path: str) -> list[dict[str, Any]]:
 
 
 def _generate_one(
-    q: dict[str, Any], out_dir: pathlib.Path, driver_factory: Callable[[], Any], max_steps: int
+    q: dict[str, Any], out_dir: pathlib.Path, driver_factory: Callable[[], Any],
+    max_steps: int, profile: DomainProfile,
 ) -> bool:
     """Generate and save one trace. Returns True if a new trace was written."""
     dest = out_dir / f"{q['id']}.json"
@@ -44,7 +46,8 @@ def _generate_one(
         return False  # resumable: already done
     try:
         driver = driver_factory()
-        trace = run_agent(q["question"], q["asof_date"], driver=driver, max_steps=max_steps)
+        trace = run_agent(q["question"], q["asof_date"], driver=driver, max_steps=max_steps,
+                          profile=profile)
         trace.meta.setdefault("question_id", q["id"])
         trace.meta.setdefault("theme", q.get("theme"))
         # Atomic write: a kill mid-write must not leave a truncated file that resume treats
@@ -66,8 +69,10 @@ def run_generation(
     concurrency: int = 4,
     driver_factory: Callable[[], Any] | None = None,
     max_steps: int = DEFAULT_MAX_STEPS,
+    domain: str = "macro",
 ) -> int:
     """Generate traces for the question bank. Returns the count of newly written traces."""
+    profile = get_profile(domain)
     questions = _load_bank(bank)
     if limit is not None:
         questions = questions[:limit]
@@ -82,10 +87,10 @@ def run_generation(
     written = 0
     if concurrency <= 1:
         for q in questions:
-            written += int(_generate_one(q, out_dir, driver_factory, max_steps))
+            written += int(_generate_one(q, out_dir, driver_factory, max_steps, profile))
     else:
         with ThreadPoolExecutor(max_workers=concurrency) as ex:
-            futures = [ex.submit(_generate_one, q, out_dir, driver_factory, max_steps) for q in questions]
+            futures = [ex.submit(_generate_one, q, out_dir, driver_factory, max_steps, profile) for q in questions]
             for fut in as_completed(futures):
                 written += int(fut.result())
 
@@ -101,10 +106,11 @@ def main() -> None:
     ap.add_argument("--model", default=os.getenv("TEACHER_MODEL"))
     ap.add_argument("--concurrency", type=int, default=4)
     ap.add_argument("--max-steps", type=int, default=DEFAULT_MAX_STEPS)
+    ap.add_argument("--domain", default="macro", help="domain profile: macro | general_search")
     args = ap.parse_args()
     run_generation(
         args.bank, args.out, limit=args.limit, model=args.model,
-        concurrency=args.concurrency, max_steps=args.max_steps,
+        concurrency=args.concurrency, max_steps=args.max_steps, domain=args.domain,
     )
 
 

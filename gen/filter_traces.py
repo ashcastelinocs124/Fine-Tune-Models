@@ -15,6 +15,7 @@ import collections
 import json
 import pathlib
 
+from macro_ds.domains import get_profile
 from macro_ds.filtering import mechanical_gates
 from macro_ds.judge import judge_trace
 from macro_ds.schema import Trace
@@ -26,7 +27,9 @@ def main() -> None:
     ap.add_argument("--clean", default="data/traces/clean")
     ap.add_argument("--judge", default=None, help="judge model id; omit/--skip-judge to skip")
     ap.add_argument("--skip-judge", action="store_true", help="mechanical gates only")
+    ap.add_argument("--domain", default="macro", help="domain profile: macro | general_search")
     args = ap.parse_args()
+    profile = get_profile(args.domain)
 
     raw_dir = pathlib.Path(args.raw)
     clean_dir = pathlib.Path(args.clean)
@@ -56,7 +59,7 @@ def main() -> None:
             judge_result = {"keep": True, "overall": None, "scores": {}}
             if args.judge and not args.skip_judge:
                 try:
-                    judge_result = judge_trace(trace, model=args.judge)
+                    judge_result = judge_trace(trace, model=args.judge, rubric=profile.judge_rubric)
                 except Exception as e:  # noqa: BLE001
                     print(f"[warn] judge failed for {path.name}: {e}")
                     reasons_hist["judge_error"] += 1
