@@ -6,6 +6,7 @@ data/traces/
 data/dataset/
 outputs/
 eval/results/
+search-fine-tuned-model/data/
 
 # python
 __pycache__/
@@ -17,5 +18,7 @@ __pycache__/
 CLAUDE.md
 AGENTS.md
 docs/plans/
+docs/superpowers/
 *-spec.md
 *-plan.md
+*-design.md
