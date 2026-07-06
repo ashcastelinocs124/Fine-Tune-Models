@@ -59,9 +59,9 @@ def _call_judge(messages: list[dict[str, Any]], model: str) -> str:
     return resp.choices[0].message.content or ""
 
 
-def judge_trace(trace: Trace, model: str) -> dict[str, Any]:
+def judge_trace(trace: Trace, model: str, rubric: str | None = None) -> dict[str, Any]:
     messages = [
-        {"role": "system", "content": RUBRIC},
+        {"role": "system", "content": rubric if rubric is not None else RUBRIC},
         {"role": "user", "content": build_judge_prompt(trace)},
     ]
     raw = _call_judge(messages, model)
