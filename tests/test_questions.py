@@ -22,6 +22,21 @@ def test_question_bank_caps_at_available_combinations():
     assert len(qs) == len({q["question"] for q in qs})
 
 
+def test_cross_product_accepts_custom_themes_and_templates():
+    from macro_ds.questions import cross_product
+
+    themes = [{"key": "t1", "subject": "solar power"}, {"key": "t2", "subject": "gene editing"}]
+    templates = ["What is the state of {subject}?", "Risks of {subject}?"]
+    items = cross_product("2026-07-06", themes, templates, id_prefix="gs-", n=100)
+    assert len(items) == 4
+    assert items[0] == {
+        "id": "gs-t1-00",
+        "question": "What is the state of solar power?",
+        "theme": "t1",
+        "asof_date": "2026-07-06",
+    }
+
+
 def test_eval_set_is_unique_and_disjoint_from_training():
     from macro_ds.questions import build_eval_set
 

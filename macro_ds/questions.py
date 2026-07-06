@@ -69,10 +69,13 @@ EVAL_TEMPLATES: list[str] = [
 ]
 
 
-def _cross_product(asof_date: str, templates: list[str], id_prefix: str, n: int) -> list[dict[str, Any]]:
+def cross_product(
+    asof_date: str, themes: list[dict[str, str]], templates: list[str], id_prefix: str, n: int
+) -> list[dict[str, Any]]:
+    """Deterministic themes × templates question bank (shared by all domain profiles)."""
     items: list[dict[str, Any]] = []
     seen: set[str] = set()
-    for theme in THEMES:
+    for theme in themes:
         for ti, template in enumerate(templates):
             question = template.format(**theme)
             if question in seen:
@@ -91,9 +94,9 @@ def _cross_product(asof_date: str, templates: list[str], id_prefix: str, n: int)
 
 def build_question_bank(asof_date: str, n: int) -> list[dict[str, Any]]:
     """Return up to `n` unique, deterministically-ordered macro TRAINING questions."""
-    return _cross_product(asof_date, TEMPLATES, "", n)
+    return cross_product(asof_date, THEMES, TEMPLATES, "", n)
 
 
 def build_eval_set(asof_date: str, n: int) -> list[dict[str, Any]]:
     """Return up to `n` held-out EVAL questions, disjoint from the training bank."""
-    return _cross_product(asof_date, EVAL_TEMPLATES, "eval-", n)
+    return cross_product(asof_date, THEMES, EVAL_TEMPLATES, "eval-", n)
