@@ -59,6 +59,40 @@ def test_forces_final_report_at_step_budget(mocker):
     assert trace.messages[-1].role == "assistant" and not trace.messages[-1].tool_calls
 
 
+def test_run_agent_uses_profile_prompt_tools_and_finalize():
+    from macro_ds.domains import GENERAL_SEARCH
+
+    class RecordingDriver:
+        def __init__(self):
+            self.seen_schemas = None
+
+        def step(self, messages, tool_schemas, allow_tools=True):
+            self.seen_schemas = tool_schemas
+            return Message(role="assistant", content="Final report: done. [http://x]")
+
+    drv = RecordingDriver()
+    trace = agent.run_agent("How do solar panels degrade?", "2026-07-06", driver=drv,
+                            max_steps=3, profile=GENERAL_SEARCH)
+
+    system = trace.messages[0]
+    assert system.role == "system"
+    assert "source-grounded research on any topic" in system.content
+    assert "FRED" not in system.content
+    assert [s["function"]["name"] for s in drv.seen_schemas] == ["web_search", "fetch_url"]
+    assert trace.final_report.startswith("Final report:")
+
+
+def test_run_agent_default_profile_is_macro():
+    from macro_ds.prompts import build_system_prompt
+
+    class OneShotDriver:
+        def step(self, messages, tool_schemas, allow_tools=True):
+            return Message(role="assistant", content="Final report: ok")
+
+    trace = agent.run_agent("q", "2026-06-01", driver=OneShotDriver(), max_steps=3)
+    assert trace.messages[0].content == build_system_prompt(asof_date="2026-06-01", max_steps=3)
+
+
 def test_tool_error_increments_counter(mocker):
     scripted = [
         Message(

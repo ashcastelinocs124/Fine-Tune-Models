@@ -9,7 +9,7 @@ from __future__ import annotations
 
 from typing import Protocol
 
-from macro_ds.prompts import FINALIZE_INSTRUCTION, build_system_prompt
+from macro_ds.domains import MACRO, DomainProfile
 from macro_ds.schema import Message, Trace
 from macro_ds.tools import execute_tool, openai_tool_schemas
 
@@ -24,13 +24,20 @@ class Driver(Protocol):
     def step(self, messages: list[Message], tool_schemas: list[dict], allow_tools: bool = True) -> Message: ...
 
 
-def run_agent(question: str, asof_date: str, driver: Driver, max_steps: int = 12) -> Trace:
-    system = build_system_prompt(asof_date=asof_date, max_steps=max_steps)
+def run_agent(
+    question: str,
+    asof_date: str,
+    driver: Driver,
+    max_steps: int = 12,
+    profile: DomainProfile | None = None,
+) -> Trace:
+    p = profile or MACRO
+    system = p.build_system_prompt(asof_date=asof_date, max_steps=max_steps)
     messages: list[Message] = [
         Message(role="system", content=system),
         Message(role="user", content=question),
     ]
-    tool_schemas = openai_tool_schemas()
+    tool_schemas = openai_tool_schemas(p.tool_names)
 
     steps = 0
     tool_errors = 0
@@ -43,7 +50,7 @@ def run_agent(question: str, asof_date: str, driver: Driver, max_steps: int = 12
         last = steps == max_steps - 1
         if last:
             # force a clean written report on the final step
-            messages.append(Message(role="user", content=FINALIZE_INSTRUCTION))
+            messages.append(Message(role="user", content=p.finalize_instruction))
         assistant = driver.step(messages, tool_schemas, allow_tools=not last)
         messages.append(assistant)
         steps += 1
