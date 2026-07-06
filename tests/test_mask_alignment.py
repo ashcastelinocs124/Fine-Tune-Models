@@ -47,6 +47,40 @@ def test_only_assistant_tokens_get_loss(good_trace):
 
 
 @pytest.mark.network
+def test_mask_holds_on_qwen25_template_with_general_profile():
+    """Same guarantee as the Qwen3 test, on the Qwen2.5-7B-Instruct template with a
+    general_search (web-only) trace: only assistant tokens get loss."""
+    from macro_ds.domains import GENERAL_SEARCH
+
+    msgs = [
+        Message(role="system", content=GENERAL_SEARCH.build_system_prompt(asof_date="2026-07-06")),
+        Message(role="user", content="What is the state of solar power?"),
+        Message(
+            role="assistant",
+            content="Thought: search for recent solar deployment data.",
+            tool_calls=[ToolCall(id="a", name="web_search", arguments={"query": "solar deployment 2026"})],
+        ),
+        Message(role="tool", content="1. Solar hits record — http://example.com/solar", tool_call_id="a", name="web_search"),
+        Message(role="assistant", content="Final report: solar is growing fast [http://example.com/solar]. Findings, uncertainties, and further evidence follow in enough words to clear any length gate."),
+    ]
+    trace = Trace(question="q", asof_date="2026-07-06", messages=msgs, final_report=msgs[-1].content, steps=2)
+
+    from transformers import AutoTokenizer
+
+    tok = AutoTokenizer.from_pretrained("Qwen/Qwen2.5-7B-Instruct")
+    ids, labels = render_and_mask(trace_to_record(trace), tok)
+
+    unmasked = tok.decode([i for i, l in zip(ids, labels) if l != -100])
+    masked = tok.decode([i for i, l in zip(ids, labels) if l == -100])
+
+    assert "Thought" in unmasked and "web_search" in unmasked and "Final report" in unmasked
+    assert "source-grounded research" in masked  # system prompt not trained
+    assert "<|im_start|>" not in unmasked
+    assert "<tool_response>" not in unmasked
+    assert "user\n" not in unmasked
+
+
+@pytest.mark.network
 def test_multiple_tool_calls_in_one_turn_are_fully_trained():
     """An assistant turn issuing two tool calls at once must train both, and still not
     overshoot into the following tool-response framing."""
