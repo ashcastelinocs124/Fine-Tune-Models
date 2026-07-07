@@ -20,9 +20,8 @@ from macro_ds import config
 from macro_ds.formatting import format_fetched_page, format_fred, format_search_results
 
 FRED_BASE = "https://api.stlouisfed.org/fred"
-SONAR_ENDPOINT = "https://api.perplexity.ai/chat/completions"  # OpenAI-compatible
 _HTTP_TIMEOUT = 20.0
-_SONAR_TIMEOUT = 60.0  # Sonar searches the web + synthesizes, so it's slower
+_SEARCH_TIMEOUT = 60.0  # the model searches the web + synthesizes, so it's slower
 _USER_AGENT = "macro-ds/0.1 (research agent)"
 
 _retry = retry(stop=stop_after_attempt(3), wait=wait_exponential(multiplier=0.5, max=8), reraise=True)
@@ -31,33 +30,39 @@ _retry = retry(stop=stop_after_attempt(3), wait=wait_exponential(multiplier=0.5,
 # ---------------------------------------------------------------------------
 # Raw network helpers (mocked in tests)
 # ---------------------------------------------------------------------------
-@_retry
-def _sonar_raw(query: str, k: int) -> list[dict[str, Any]]:
-    """Web search via Perplexity Sonar. Returns ranked {title, url, snippet} hits.
+def _parse_openai_search(resp: Any, k: int) -> list[dict[str, Any]]:
+    """Map a Responses-API result to ranked {title, url, snippet} hits.
 
-    Sonar's response carries a top-level `search_results` array (title/url/snippet/date);
-    we map it to the same shape Tavily used so `format_search_results` is unchanged. Older
-    API responses expose only `citations` (plain URLs) — handled as a fallback.
+    The model's answer text carries `url_citation` annotations (url/title plus the
+    start/end indices of the passage each citation supports); that cited passage
+    becomes the snippet, so `format_search_results` is unchanged from the Sonar era.
     """
-    model = config.get_opt("SONAR_MODEL", "sonar")
-    resp = httpx.post(
-        SONAR_ENDPOINT,
-        headers={
-            "Authorization": f"Bearer {config.get_key('PERPLEXITY_API_KEY')}",
-            "Content-Type": "application/json",
-        },
-        json={"model": model, "messages": [{"role": "user", "content": query}], "search_mode": "web"},
-        timeout=_SONAR_TIMEOUT,
-    )
-    resp.raise_for_status()
-    data = resp.json()
-    results = [
-        {"title": r.get("title"), "url": r.get("url"), "snippet": r.get("snippet")}
-        for r in (data.get("search_results") or [])
-    ]
-    if not results:  # fallback for responses that only return citation URLs
-        results = [{"title": u, "url": u, "snippet": ""} for u in (data.get("citations") or [])]
+    results: list[dict[str, Any]] = []
+    seen: set[str] = set()
+    for item in getattr(resp, "output", None) or []:
+        if getattr(item, "type", None) != "message":
+            continue
+        for part in getattr(item, "content", None) or []:
+            text = getattr(part, "text", "") or ""
+            for ann in getattr(part, "annotations", None) or []:
+                url = getattr(ann, "url", None)
+                if getattr(ann, "type", None) != "url_citation" or not url or url in seen:
+                    continue
+                seen.add(url)
+                snippet = text[getattr(ann, "start_index", 0): getattr(ann, "end_index", 0)].strip()
+                results.append({"title": getattr(ann, "title", None) or url, "url": url, "snippet": snippet})
     return results[:k]
+
+
+@_retry
+def _openai_search_raw(query: str, k: int) -> list[dict[str, Any]]:
+    """Web search via the OpenAI Responses API's built-in web_search tool."""
+    from openai import OpenAI
+
+    model = config.get_opt("SEARCH_MODEL", "gpt-5-mini")
+    client = OpenAI(api_key=config.get_key("OPENAI_API_KEY"), timeout=_SEARCH_TIMEOUT)
+    resp = client.responses.create(model=model, tools=[{"type": "web_search"}], input=query)
+    return _parse_openai_search(resp, k)
 
 
 @_retry
@@ -97,7 +102,7 @@ def _fred_search_raw(text: str) -> list[dict[str, Any]]:
 # ---------------------------------------------------------------------------
 def web_search(query: str, k: int = 5) -> str:
     try:
-        return format_search_results(_sonar_raw(query, k), k=k)
+        return format_search_results(_openai_search_raw(query, k), k=k)
     except Exception as e:  # noqa: BLE001 — surface failure as tool output
         return f"ERROR: web_search failed: {e}"
 

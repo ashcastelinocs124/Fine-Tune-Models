@@ -9,7 +9,7 @@ Design: `docs/plans/2026-06-01-macro-deepsearch-distill-design.md`. Plan: `…-p
 ```bash
 python -m venv .venv && source .venv/bin/activate
 pip install -e ".[dev]"
-cp .env.example .env   # fill OPENAI_API_KEY, PERPLEXITY_API_KEY, FRED_API_KEY, TEACHER_MODEL, JUDGE_MODEL, SONAR_MODEL
+cp .env.example .env   # fill OPENAI_API_KEY, FRED_API_KEY, TEACHER_MODEL, JUDGE_MODEL, SEARCH_MODEL
 pytest -q              # 53 tests (one downloads the Qwen3 tokenizer)
 ```
 
@@ -23,7 +23,7 @@ cp .env.example .env   # same keys (teacher + judge run via OpenAI API)
 nvidia-smi             # confirm the GPU
 ```
 
-## 1. Data (run on `[mac]`, costs OpenAI + Tavily)
+## 1. Data (run on `[mac]`, costs OpenAI only — search runs via the OpenAI web_search tool)
 
 ```bash
 python gen/make_questions.py --n 180 --asof 2026-06-01           # data/questions/bank.jsonl

@@ -3,14 +3,39 @@ from macro_ds import tools
 
 def test_web_search_uses_formatting_and_handles_error(mocker):
     mocker.patch.object(
-        tools, "_sonar_raw", return_value=[{"title": "A", "url": "http://u", "snippet": "s"}]
+        tools, "_openai_search_raw", return_value=[{"title": "A", "url": "http://u", "snippet": "s"}]
     )
     out = tools.web_search("fed path")
     assert "http://u" in out
 
-    mocker.patch.object(tools, "_sonar_raw", side_effect=RuntimeError("429"))
+    mocker.patch.object(tools, "_openai_search_raw", side_effect=RuntimeError("429"))
     err = tools.web_search("fed path")
     assert err.startswith("ERROR:")
+
+
+def test_parse_openai_search_maps_citations_dedupes_and_caps():
+    from types import SimpleNamespace as NS
+
+    text = "Solar grew 30% last year. Storage costs fell too."
+    ann = lambda url, title, s, e: NS(type="url_citation", url=url, title=title, start_index=s, end_index=e)  # noqa: E731
+    resp = NS(output=[
+        NS(type="reasoning"),  # non-message items are skipped
+        NS(type="message", content=[
+            NS(text=text, annotations=[
+                ann("http://a", "Solar report", 0, 25),
+                ann("http://a", "dupe of a", 0, 25),
+                ann("http://b", None, 26, 49),
+                NS(type="other", url="http://c"),  # non-citation annotation skipped
+            ]),
+        ]),
+    ])
+    hits = tools._parse_openai_search(resp, k=5)
+    assert hits == [
+        {"title": "Solar report", "url": "http://a", "snippet": "Solar grew 30% last year."},
+        {"title": "http://b", "url": "http://b", "snippet": "Storage costs fell too."},
+    ]
+    assert tools._parse_openai_search(resp, k=1) == hits[:1]
+    assert tools._parse_openai_search(NS(output=[]), k=5) == []
 
 
 def test_fetch_url_extracts_and_handles_error(mocker):

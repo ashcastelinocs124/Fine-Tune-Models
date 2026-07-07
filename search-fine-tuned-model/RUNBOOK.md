@@ -4,7 +4,7 @@ Distill GPT-5 general-web research traces into a Qwen2.5-7B-Instruct QLoRA adapt
 Same pipeline as the macro project, with `--domain general_search`. Budget: ~$50
 teacher spend (~$2.50/trace measured at macro Stage 0), $0 training (Kaggle).
 
-## 1. Data (Mac, costs OpenAI + Perplexity)
+## 1. Data (Mac, costs OpenAI — search included via the web_search tool)
 
 ```bash
 source .venv/bin/activate    # keys come from .env

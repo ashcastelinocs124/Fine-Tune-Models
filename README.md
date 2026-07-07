@@ -27,7 +27,7 @@ what makes a small distilled model actually transfer.
 flowchart TB
   subgraph HARNESS["Shared tool harness - the spine"]
     direction LR
-    ws["web_search via Sonar"]
+    ws["web_search via OpenAI"]
     fu["fetch_url"]
     fr["fred_series"]
     loop["ReAct loop run_agent"]
@@ -69,7 +69,7 @@ flowchart TB
 |---|---|
 | Student | Qwen3-8B, QLoRA (4-bit NF4) via PEFT/transformers (`train/train_qlora.py`) |
 | Teacher | GPT (GPT-5) via OpenAI API; judge GPT-5-mini |
-| Tools | Perplexity Sonar (web search) · `fetch_url` · FRED (economic data) |
+| Tools | OpenAI web search (Responses API) · `fetch_url` · FRED (economic data) |
 | Serving | local transformers (`HFDriver`), or vLLM (OpenAI-compatible) |
 | Hardware | data pipeline on CPU/Mac · training + serving on 1× A100/H100 |
 
@@ -91,7 +91,7 @@ tests/      unit tests for every deterministic component
 ```bash
 python -m venv .venv && source .venv/bin/activate
 pip install -e ".[dev]"
-cp .env.example .env     # OPENAI_API_KEY, PERPLEXITY_API_KEY, FRED_API_KEY, TEACHER_MODEL, JUDGE_MODEL, SONAR_MODEL
+cp .env.example .env     # OPENAI_API_KEY, FRED_API_KEY, TEACHER_MODEL, JUDGE_MODEL, SEARCH_MODEL
 pytest -q                # the data pipeline + harness are fully unit-tested
 ```
 
